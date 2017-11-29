@@ -1,0 +1,50 @@
+﻿@model SpotMe.Web.Models.CollectViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Hitta ny musik</h2>
+
+@using (Html.BeginForm("BySeeds", "Display"))
+{
+    <h3> Välj genre:</h3>
+    <div class="row">
+
+        <div class="col-xs-12">
+            @foreach (var genre in Model.Genres)
+            {
+                
+                <label class="checkbox-inline">
+                    <input type="checkbox"
+                           name="SelectedGenre"
+                           value="@genre.Value" /> @genre.Text
+                </label>
+                
+            }
+               
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-4">
+            <input type="submit" name="Skicka"/>
+        </div>
+    </div>
+}
+
+<h2>Nya releaser</h2>
+
+@foreach (var album in Model.NewReleases.albums.items)
+{
+    <div class="row">
+        <div class="col-xs-4">
+            <img src="@album.images.OrderByDescending(i => i.width).First().url" width="100px" />
+        </div>
+        <div class="col-xs-4">
+            @album.name  by @string.Join(", ", album.artists.Select(a => a.name)) 
+        </div>
+        <div class="col-xs-4">
+            <a href="@album.external_urls.spotify">Open in Spotify</a>
+        </div>
+    </div>
+}

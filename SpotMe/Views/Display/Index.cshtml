@@ -1,0 +1,25 @@
+﻿@model SpotMe.Controllers.DisplayRecommendationsViewModel
+
+@{
+    ViewBag.Title = "title";
+    
+}
+
+<h2>Recommendations</h2>
+
+@foreach (var track in Model.Items)
+{
+    <div class="row">
+
+        <div class="col-xs-4">
+            @track.name
+            by @string.Join(", ", track.artists.Select(a => a.name))
+        </div>
+        <div class="col-xs-4">
+            @track.Duration
+        </div>
+        <div class="col-xs-4">
+            <a href="@track.external_urls.spotify">Open in Spotify</a>
+        </div>
+    </div>
+}
